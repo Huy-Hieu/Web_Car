@@ -1,0 +1,123 @@
+@using CarShowroom.Models;
+@{
+    KhachHang khachHang = ViewBag.ThongTinUser;
+    GioHang gioHang = ViewBag.GioHang;
+    decimal money = ViewBag.Money;
+    ViewBag.Title = "ThanhToan";
+}
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container wrapper">
+    <div class="row cart-head">
+        <div class="container">
+            <div class="row">
+                <p></p>
+            </div>
+            <div class="row">
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <div class="row cart-body">
+        <form class="form-horizontal" method="post" action="/GioHang/DatHang">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-push-6 col-sm-push-6">
+                <!--REVIEW ORDER-->
+                <div class="panel panel-info">
+                    <div style="background-color:#52c5ff;color:white" class="panel-heading">
+                        Review <div class="pull-right"><small><a class="afix-1" href="#">Edit Cart</a></small></div>
+                    </div>
+                    <div class="panel-body">
+                        @foreach (var item in gioHang.DoTrongGioHangs)
+                        {
+                            <div class="form-group">
+                                <div class="col-sm-3 col-xs-3">
+                                    <img class="img-responsive" src="@item.Xe.HinhAnh" />
+                                </div>
+                                <div class="col-sm-6 col-xs-6">
+                                    <div class="col-xs-12">@item.Xe.TenXe</div>
+                                    <div class="col-xs-12"><small>Số Lượng:<span>@item.Quantity</span></small></div>
+                                </div>
+                                <div class="col-sm-3 col-xs-3 text-right">
+                                    <h6><span></span>@((item.Xe.GiaChoThue * item.Quantity).ToString("0##,##0")) vnd</h6>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="form-group"><hr /></div>
+                        <div class="form-group">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ngày Nhận</th>
+                                        <th scope="col">Ngày Trả</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@gioHang.NgayThue.Value.Date.ToShortDateString()</td>
+                                        <td>@gioHang.NgayTra.Value.Date.ToShortDateString()</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group"><hr /></div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <strong>Tổng tiền</strong>
+                                <div class="pull-right"><span></span><span name="totalMoney">@money.ToString("0##,##0") vnd</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--REVIEW ORDER END-->
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-pull-6 col-sm-pull-6">
+                <!--SHIPPING METHOD-->
+                <div class="panel panel-info">
+                    <div style="color:white;background-color:#52c5ff;" class="panel-heading">Địa Chỉ Giao Hàng</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12"><strong>Tên Người Nhận:</strong></div>
+                            <div class="col-md-12">
+                                <input type="text" name="tenNguoiNhan" class="form-control" value="@khachHang.TenKhachHang" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12"><strong>Số Điện Thoại:</strong></div>
+                            <div class="col-md-12">
+                                <input type="number" name="sdt" class="form-control" value="@khachHang.SoTaiKhoan" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12"><strong>Địa Chỉ:</strong></div>
+                            <div class="col-md-12">
+                                <textarea class="form-control" rows="5" id="diaChi">@khachHang.DiaChi</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--SHIPPING METHOD END-->
+                <!--CREDIT CART PAYMENT-->
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <button type="submit" class="btn btn-primary btn-submit-fix">Đặt Hàng</button>
+                    </div>
+                </div>
+                <!--CREDIT CART PAYMENT END-->
+            </div>
+
+        </form>
+    </div>
+    <div class="row cart-footer">
+
+    </div>
+</div>
